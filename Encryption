@@ -1,0 +1,28 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    string s;
+    cin>>s;
+    float sq=sqrt((double)s.length());
+    int sqr=sq;int r,c;
+    if(sqr*sqr==s.length()) r=sqr,c=sqr;
+    else r=sqr,c=sqr+1;
+    for(int i=0;i<c;i++)
+    {
+        int idx=i;
+        while(idx<s.length())
+        {
+            cout<<s[idx];
+            idx+=c;
+        }
+        if(i!=c-1) cout<<" ";
+    }
+    cout<<endl;
+    return 0;
+}
