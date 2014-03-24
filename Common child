@@ -1,0 +1,29 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+vector<vector<int> > a(5000,vector<int>(5000,-1));
+int maxl(string&s1,string&s2,int n,int m)
+  {
+  if(n<0||m<0) return 0;
+  if(a[n][m]!=-1) return a[n][m];
+  else if(s1[n]==s2[m])
+    {
+    a[n][m]=1+maxl(s1,s2,n-1,m-1);
+    return a[n][m];
+  }
+  else
+  {
+    a[n][m]=max(maxl(s1,s2,n,m-1),maxl(s1,s2,n-1,m));
+    return a[n][m];
+  }
+}
+  
+  int main() {
+       string s1,s2;
+  cin>>s1>>s2;
+  cout<<maxl(s1,s2,s1.length()-1,s2.length()-1)<<endl;
+    return 0;
+}
