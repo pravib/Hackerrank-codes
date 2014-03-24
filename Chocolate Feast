@@ -1,0 +1,29 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    int N,C,M,t;
+    cin>>t;
+    while(t--)
+    {
+        int count=0;
+        cin>>N>>C>>M;
+        count=N/C;
+        int temp=count/M;
+        int mod=count%M;
+        while(temp)
+        {
+            count+=temp;
+            int k=(temp+mod);
+            temp=k/M;
+            mod=k%M;
+        }
+        cout<<count<<endl;
+    }
+    return 0;
+}
