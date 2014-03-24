@@ -1,0 +1,105 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+bool ishex(char&c)
+  {
+  if((c>='0'&&c<='9')||(c>='a'&&c<='f')) return true;
+  return false;
+}
+
+bool IsIPv6(string&s)
+  {
+  int n=0,st=0,i=1;
+  
+  if(isdigit(s[0])) n=(isdigit(s[i]))?s[i]-'0':s[i]-'a'+10;
+  else return false;
+     
+  while(s[i]!='\0')
+    {
+    if(st==14 && ishex(s[i]))
+      {
+        n=16*n+(isdigit(s[i]))?s[i]-'0':s[i]-'a'+10;
+        i++;
+        if(n>0xffff) return false;
+    }
+    else if(st%2==0)
+      {
+      if(ishex(s[i]))
+        {
+        n=16*n+(isdigit(s[i]))?s[i]-'0':s[i]-'a'+10;
+        i++;
+        if(n>0xffff) return false;
+      }
+      else if(s[i]==':')
+        {
+        st++;i++;
+      }
+      else return false;
+    }
+    else if( st%2==1 && ishex(s[i]))
+      {
+      n=(isdigit(s[i]))?s[i]-'0':s[i]-'a'+10;
+      st++;i++;
+    }
+    else return false;
+  }
+  if(st==14) return true;
+  return false;
+}
+
+bool IsIPv4(string&s)
+  {
+  int n=0,st=0,i=1;
+  
+  if(isdigit(s[0])) n=s[0]-'0';
+  else return false;
+     
+  while(s[i]!='\0')
+    {
+    if(st==6 && isdigit(s[i]))
+      {
+        n=10*n+s[i]-'0';
+        i++;
+        if(n>255) return false;
+    }
+    else if(st%2==0)
+      {
+      if(isdigit(s[i]))
+        {
+        n=10*n+s[i]-'0';
+        i++;
+        if(n>255) return false;
+      }
+      else if(s[i]=='.')
+        {
+        st++;i++;
+      }
+      else return false;
+    }
+    else if( st%2==1 && isdigit(s[i]))
+      {
+      n=s[i]-'0';
+      st++;i++;
+    }
+    else return false;
+  }
+  if(st==6) return true;
+  return false;
+}
+
+int main() {
+    int t;cin>>t;
+  getchar();
+  while(t--)
+    {
+    string s;getline(cin,s);
+    if(IsIPv4(s)) cout<<"IPv4\n";
+    else if(IsIPv6(s)) cout<<"IPv6\n";
+    else cout<<"Neither\n";
+  }
+    return 0;
+}
