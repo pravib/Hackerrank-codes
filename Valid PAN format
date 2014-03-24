@@ -1,0 +1,29 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+bool check(string&s)
+  {
+  int curr=0;
+  for(int i=0;i<s.length();i++)
+    {
+   	if(curr<5&&isalpha(s[i])&&isupper(s[i])) curr++;
+    else if(curr>=5&&curr<=8&&isdigit(s[i])) curr++;
+    else if(curr==9&&isalpha(s[i])&&isupper(s[i])) curr++;
+  }
+  return (curr==10);
+}
+
+int main() {
+    int t;cin>>t;
+  while(t--)
+    {
+    string s;cin>>s;
+    if(check(s)) cout<<"YES\n";
+    else cout<<"NO\n";
+  }
+    return 0;
+}
